@@ -7,12 +7,14 @@ import numpy as np
 def load_audio(request):
     def _load_audio(file_path1, file_path2):
         audio1 = AudioSegment.from_file(file_path1)
-        audio1.export("mp3_to_wav.wav", format="wav")
-        audio1 = AudioSegment.from_wav("mp3_to_wav.wav").set_channels(1)
+        audio1_common_type = ".build/original.wav"
+        audio1.export(audio1_common_type, format="wav")
+        audio1 = AudioSegment.from_wav(audio1_common_type).set_channels(1)
 
         audio2 = AudioSegment.from_file(file_path2)
-        audio2.export("ogg_to_wav.wav", format="wav")
-        audio2 = AudioSegment.from_wav("ogg_to_wav.wav").set_channels(1)
+        audio2_common_type = ".build/compressed.wav"
+        audio2.export(audio2_common_type, format="wav")
+        audio2 = AudioSegment.from_wav(audio2_common_type).set_channels(1)
 
 
         return np.array(audio1.get_array_of_samples()), np.array(audio2.get_array_of_samples())
