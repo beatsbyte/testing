@@ -5,6 +5,7 @@ import numpy as np
 import os
 import aiohttp
 import asyncio
+from aiohttp.payload import BytesPayload
 
 @pytest.fixture
 async def send_music(service_client):
