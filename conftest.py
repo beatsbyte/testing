@@ -6,10 +6,10 @@ import os
 import aiohttp
 import asyncio
 from aiohttp.payload import BytesPayload
-
+import requests
 @pytest.fixture
-async def send_music(service_client):
-    async def _send_music(file_path):
+async def send_music():
+    async def _send_music(url, file_path):
         try:
             with open(file_path, "rb") as file:
                 file_content = file.read()
@@ -25,21 +25,20 @@ async def send_music(service_client):
             )
 
             part = data.append_payload(payload)
-            part.set_content_disposition('form-data', name='file', filename="data/test_input.mp3")
+            part.set_content_disposition('form-data', name='file', filename="test_input.mp3")
 
         headers = {
             "Content-Type": f"multipart/form-data; boundary={data.boundary}",
         }
 
-        response = await service_client.post(
-            '/convert-to-ogg',
-            data=data,
-            headers=headers
-        )
 
-        content_type = response.headers.get("Content-Type", "")
+        async with aiohttp.ClientSession() as session:
+                async with session.post(f'{url}/v1/compress', data=data, headers=headers) as response:
+                    if response.status != 200:
+                        pytest.fail(f"Request failed with status: {response.status}")
+                    ogg_content = await response.read()
 
-        ogg_content = await response.read()
+        # ogg_content = await response.read()
         output_file_path = "data/test_output.ogg"
         with open(output_file_path, "wb") as output_file:
             output_file.write(ogg_content)
@@ -49,12 +48,11 @@ async def send_music(service_client):
     return _send_music
 
 
-
 @pytest.fixture
 def audio2npArray():
     def _audio2npArray(audio_path):
         audio = AudioSegment.from_file(audio_path)
-        audio_common_type = ".build/audio.wav"
+        audio_common_type = "data/audio.wav"
         audio.export(audio_common_type, format="wav")
         audio = AudioSegment.from_wav(audio_common_type).set_channels(1)
         return np.array(audio.get_array_of_samples())

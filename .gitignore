@@ -2,7 +2,6 @@
 .vscode/
 .venv/
 __pycache__/
-data/
 .pytest_cache/
 .build/
 test_audio.py
