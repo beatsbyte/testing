@@ -2,15 +2,24 @@ import pytest
 from aiohttp.payload import BytesPayload
 import aiohttp
 import os
+
+def number_sequence():
+    count = 1
+    while True:
+        yield str(count)
+        count += 1
+    
+seq = number_sequence()
+
 url = "http://192.168.0.60:8080"
 file_path = "data/test_input.mp3"
 async def test_send_music(send_music):
-    output_file_path = await send_music(url, file_path)
+    output_file_path = await send_music(url, file_path, next(seq))
     assert os.path.exists(output_file_path)
 
 
 async def test_check_audio(send_music, audio2npArray, compare_audio):
-    output_file_path = await send_music(url, file_path)
+    output_file_path = await send_music(url, file_path, next(seq))
     np_array1 = audio2npArray(file_path)
     np_array2 = audio2npArray(output_file_path)
     correlation = compare_audio(np_array1, np_array2)

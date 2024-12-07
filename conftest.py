@@ -9,7 +9,7 @@ from aiohttp.payload import BytesPayload
 import requests
 @pytest.fixture
 async def send_music():
-    async def _send_music(url, file_path):
+    async def _send_music(url, file_path, id):
         try:
             with open(file_path, "rb") as file:
                 file_content = file.read()
@@ -39,7 +39,7 @@ async def send_music():
                     ogg_content = await response.read()
 
         # ogg_content = await response.read()
-        output_file_path = "data/test_output.ogg"
+        output_file_path = f"data/test_output_{id}.ogg"
         with open(output_file_path, "wb") as output_file:
             output_file.write(ogg_content)
         

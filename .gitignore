@@ -6,3 +6,4 @@ __pycache__/
 .build/
 test_audio.py
 request.py
+test_output*
