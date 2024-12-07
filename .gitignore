@@ -1,0 +1,8 @@
+.devcontainer/
+.vscode/
+.venv/
+__pycache__/
+.pytest_cache/
+.build/
+test_audio.py
+request.py
