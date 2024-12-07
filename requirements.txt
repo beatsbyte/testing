@@ -1,4 +1,3 @@
-pydub
-librosa
-numpy
-matplotlib
+pydub~=0.25.1
+numpy~=2.1.3
+requests~=2.32.3
