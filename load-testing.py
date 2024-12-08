@@ -5,8 +5,8 @@ from conftest import send_music
 import aiohttp
 from aiohttp.payload import BytesPayload
 import pytest
-
-url = "http://192.168.0.60:8080"
+from random import randint
+url = "http://192.168.0.61:8080"
 file_path = "data/test_input.mp3"
 
 def number_sequence():
@@ -72,7 +72,11 @@ async def test_concurrent_requests(num_requests):
     start_time = time.time()
     
     # Create tasks for all requests
-    tasks = [send_music(url, file_path, next(seq)) for _ in range(num_requests)]
+    tasks = []
+    for i in range(num_requests):
+        file_path = f"data/audio_{randint(0, 99)}.mp3"
+        tasks.append(send_music(url, file_path, next(seq)))
+    # tasks = [send_music(url, file_path, next(seq)) for _ in range(num_requests)]
     
     # Run all tasks concurrently
     responses = await asyncio.gather(*tasks)
