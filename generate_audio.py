@@ -2,6 +2,7 @@ import numpy as np
 import random
 from pydub import AudioSegment
 from pydub.generators import Sine
+from test_properties import duration_min, duration_max, cnt_music
 
 # Parameters
 sample_rate = 44100  # Standard sample rate (Hz)
@@ -44,9 +45,9 @@ def generate_audio_with_varied_sounds(filename, total_duration_seconds, sound_co
     print(f"Generated: {output_path}")
 
 # Generate audio files with random variations and total duration between 10 and 15 seconds
-for i in range(100):
+for i in range(cnt_music):
     # Randomize total duration between 10 and 15 seconds
-    total_duration_seconds = random.randint(10, 15)  # 10 to 15 seconds
+    total_duration_seconds = random.randint(duration_min, duration_max)  # 10 to 15 seconds
     sound_count = random.randint(3, 6)  # Number of different sounds to fill the short duration
 
     # Generate audio file
