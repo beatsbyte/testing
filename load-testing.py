@@ -52,6 +52,7 @@ async def send_music(url, file_path, id):
 
     # Make the HTTP POST request
     async with aiohttp.ClientSession() as session:
+        # dic = {}
         try:
             async with session.post(f'{url}/v1/compress', data=data, headers=headers) as response:
                 if response.status != 200:
@@ -62,11 +63,15 @@ async def send_music(url, file_path, id):
                     output_file_path = f"data/test_output_{id}.ogg"
                     with open(output_file_path, "wb") as output_file:
                         output_file.write(ogg_content)
-                    print(f"Request {id} completed. Output saved to {output_file_path}")
+                    print(f"Request {id} completed. Output saved to {output_file_path},{response.headers["X-Proxy-Worker-Url"]}")
+                    # if response.headers["X-Proxy-Worker-Url"] not in dic:
+                        # dic[response.headers["X-Proxy-Worker-Url"]] = 0
+                    # dic[response.headers["X-Proxy-Worker-Url"]] += 1
+
         except Exception as e:
             is_success = False
             print(f"Request {id} failed: {e}")
-
+    # print(dic)
     return is_success
 
 async def test_concurrent_requests(num_requests):
