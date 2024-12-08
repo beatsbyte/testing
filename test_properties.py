@@ -16,9 +16,11 @@ duration_min = int(properties['duration_min'])
 duration_max = int(properties['duration_max'])
 cnt_music = int(properties['cnt_music'])
 request_count = int(properties['request_count'])
+compress_degree = int(properties['compress_degree'])
 
 # Print fields
 print("Duration Min:", duration_min)
 print("Duration Max:", duration_max)
 print("Count Music:", cnt_music)
 print("Request Count:", request_count)
+print("Compress Degree:", compress_degree)
