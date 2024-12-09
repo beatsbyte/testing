@@ -1,0 +1,23 @@
+Total music count: 20
+Total music size: 95015 KB
+=====================
+
+Starting easy degree compression
+Total compressed size: 55776 KB
+Average compressed percentage: 27.79
+=====================
+
+Starting medium degree compression
+Total compressed size: 28378 KB
+Average compressed percentage: 76.87
+=====================
+
+Starting hard degree compression
+Total compressed size: 14184 KB
+Average compressed percentage: 88.44
+Starting easy degree similarity test
+Music: music1.mp3
+Starting medium degree similarity test
+Music: music1.mp3
+Starting hard degree similarity test
+Music: music1.mp3

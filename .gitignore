@@ -7,3 +7,8 @@ __pycache__/
 test_audio.py
 request.py
 test_output*
+*.log
+music/*
+responses/*
+data/*
+.env
